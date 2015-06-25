@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('search')
-         .service('userService', ['$q', SearchService]);
+         .service('searchService', ['$q', SearchService]);
 
   /**
    * Users DataService

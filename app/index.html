@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="assets/app.css"/>
 </head>
 
-<body ng-app="starterApp" layout="column" ng-controller="SearchCtrl as ctrl">
+<body ng-app="searchApp" layout="column" ng-controller="SearchCtrl as ctrl">
 
   <md-toolbar layout="row" class="md-whiteframe-z1">
     <md-button class="menu" hide-gt-sm aria-label="Show Search List">
@@ -27,19 +27,13 @@
                   md-component-id="right"
                   md-is-locked-open="$mdMedia('gt-sm')">
       <div class="md-padding">
-        <fieldset class="standard">
-          <legend>Type</legend>
-            <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
-              Document: {{ data.cb1 }}
+        <fieldset class="standard" ng-repeat="facet in ctrl.facets">
+          <legend>{{facet.title}}</legend>
+          <div ng-repeat="(key, value) in facet.values" >
+            <md-checkbox ng-model="value" aria-label="Checkbox 1">
+              {{key}}: {{value}}
             </md-checkbox>
-            <md-checkbox
-                ng-model="data.cb2"
-                aria-label="Checkbox 2"
-                ng-true-value="'yup'"
-                ng-false-value="'nope'"
-                class="md-warn">
-              Folder: {{ data.cb2 }}
-            </md-checkbox>
+          </div>
         </fieldset>
       </div>
     </md-sidenav>
@@ -94,7 +88,7 @@
   <script type="text/javascript">
 
         angular
-            .module('starterApp', ['ngMaterial', 'search'])
+            .module('searchApp', ['ngMaterial', 'search'])
             .config(function($mdThemingProvider, $mdIconProvider){
 
                 $mdIconProvider

@@ -4,6 +4,28 @@
 
   function SearchCtrl ($timeout, $q, $log) {
     var self = this;
+
+    self.facets = [
+      {
+        'title': 'Type',
+        'values': {
+          'Document': false,
+          'Folder': true,
+          'Collection': false,
+          'File': false,
+          'Image': false,
+          'News Item': false,
+          'Event': false,
+        }
+      },
+      {
+        'title': 'State',
+        'values': {
+          'Private': false,
+          'Published': true
+        },
+      }
+    ];
     self.simulateQuery = false;
     self.isDisabled    = false;
     // list of `state` value/display objects
