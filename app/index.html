@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <title>Angular Material - Faced Search</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+  <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+  <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css"/>
+  <link rel="stylesheet" href="assets/app.css"/>
+</head>
+
+<body ng-app="starterApp" layout="column" ng-controller="SearchCtrl as ctrl">
+
+  <md-toolbar layout="row" class="md-whiteframe-z1">
+    <md-button class="menu" hide-gt-sm aria-label="Show Search List">
+      <md-icon md-svg-icon="menu" ></md-icon>
+    </md-button>
+    <h1>Angular Material - Faced Search</h1>
+  </md-toolbar>
+
+  <div layout="row">
+    <md-sidenav class="site-sidenav md-sidenav-right md-whiteframe-z2"
+                  md-component-id="right"
+                  md-is-locked-open="$mdMedia('gt-sm')">
+      <div class="md-padding">
+        <fieldset class="standard">
+          <legend>Type</legend>
+            <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
+              Document: {{ data.cb1 }}
+            </md-checkbox>
+            <md-checkbox
+                ng-model="data.cb2"
+                aria-label="Checkbox 2"
+                ng-true-value="'yup'"
+                ng-false-value="'nope'"
+                class="md-warn">
+              Folder: {{ data.cb2 }}
+            </md-checkbox>
+        </fieldset>
+      </div>
+    </md-sidenav>
+
+    <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+
+      <md-content flex id="content">
+
+        <div layout="column">
+          <md-content class="md-padding">
+            <form ng-submit="$event.preventDefault()">
+              <p>Use  <code>md-autocomplete</code> to search for matches from local or remote data sources.</p>
+              <md-autocomplete
+                  ng-disabled="ctrl.isDisabled"
+                  md-no-cache="ctrl.noCache"
+                  md-selected-item="ctrl.selectedItem"
+                  md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                  md-search-text="ctrl.searchText"
+                  md-selected-item-change="ctrl.selectedItemChange(item)"
+                  md-items="item in ctrl.querySearch(ctrl.searchText)"
+                  md-item-text="item.display"
+                  md-min-length="0"
+                  placeholder="What is your favorite US state?">
+                <md-item-template>
+                  <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                </md-item-template>
+                <md-not-found>
+                  No matches found for "{{ctrl.searchText}}".
+                </md-not-found>
+              </md-autocomplete>
+              <br/>
+              <md-checkbox ng-model="ctrl.simulateQuery">Simulate query for results?</md-checkbox>
+              <md-checkbox ng-model="ctrl.noCache">Disable caching of queries?</md-checkbox>
+              <md-checkbox ng-model="ctrl.isDisabled">Disable the input?</md-checkbox>
+              <p>By default, <code>md-autocomplete</code> will cache results when performing a query.  After the initial call is performed, it will use the cached results to eliminate unnecessary server requests or lookup logic. This can be disabled above.</p>
+            </form>
+          </md-content>
+        </div>
+
+    </div>
+  </div>
+
+  <script src="./bower_components/angular/angular.js"></script>
+  <script src="./bower_components/angular-animate/angular-animate.js"></script>
+  <script src="./bower_components/angular-aria/angular-aria.js"></script>
+  <script type="text/javascript" src="./bower_components/angular-material/angular-material.js"></script>
+
+  <script src="./src/search/Search.js"></script>
+  <script src="./src/search/SearchController.js"></script>
+  <script src="./src/search/SearchService.js"></script>
+
+  <script type="text/javascript">
+
+        angular
+            .module('starterApp', ['ngMaterial', 'search'])
+            .config(function($mdThemingProvider, $mdIconProvider){
+
+                $mdIconProvider
+                    .defaultIconSet("./assets/svg/avatars.svg", 128)
+                    .icon("menu"       , "./assets/svg/menu.svg"        , 24)
+                    .icon("share"      , "./assets/svg/share.svg"       , 24)
+                    .icon("google_plus", "./assets/svg/google_plus.svg" , 512)
+                    .icon("hangouts"   , "./assets/svg/hangouts.svg"    , 512)
+                    .icon("twitter"    , "./assets/svg/twitter.svg"     , 512)
+                    .icon("phone"      , "./assets/svg/phone.svg"       , 512);
+
+                    $mdThemingProvider.theme('default')
+                        .primaryPalette('brown')
+                        .accentPalette('red');
+
+            });
+
+  </script>
+
+</body>
+</html>
